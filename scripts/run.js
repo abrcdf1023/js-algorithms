@@ -37,7 +37,11 @@ function excutetFunc(jsFile) {
 
 function watch(jsFile, cb) {
   cb()
-  fs.watch(path.dirname(jsFile), cb);
+  fs.watch(path.dirname(jsFile), (event, fileName) => {
+    if (fileName === path.basename(jsFile)) {
+      cb()
+    }
+  });
 }
 
 async function run() {
