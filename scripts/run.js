@@ -22,17 +22,19 @@ function readFiles(rootDir) {
 }
 
 function excutetFunc(jsFile) {
-  exec(`node ${jsFile}`, (error, stdout, stderr) => {
-    if (error) {
-        console.log(error.message);
-        return;
-    }
-    if (stderr) {
-        console.log(stderr);
-        return;
-    }
-    console.log(stdout);
-})
+  fs.watch(path.dirname(jsFile), function () {
+    exec(`node ${jsFile}`, (error, stdout, stderr) => {
+      if (error) {
+          console.log(error.message);
+          return;
+      }
+      if (stderr) {
+          console.log(stderr);
+          return;
+      }
+      console.log(stdout);
+    })
+  });
 }
 
 async function run() {
