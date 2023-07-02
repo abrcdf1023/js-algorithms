@@ -22,19 +22,22 @@ function readFiles(rootDir) {
 }
 
 function excutetFunc(jsFile) {
-  fs.watch(path.dirname(jsFile), function () {
-    exec(`node ${jsFile}`, (error, stdout, stderr) => {
-      if (error) {
-          console.log(error.message);
-          return;
-      }
-      if (stderr) {
-          console.log(stderr);
-          return;
-      }
-      console.log(stdout);
-    })
-  });
+  exec(`ts-node ${jsFile}`, (error, stdout, stderr) => {
+    if (error) {
+        console.log(error.message);
+        return;
+    }
+    if (stderr) {
+        console.log(stderr);
+        return;
+    }
+    console.log(stdout);
+  })
+}
+
+function watch(jsFile, cb) {
+  cb()
+  fs.watch(path.dirname(jsFile), cb);
 }
 
 async function run() {
@@ -51,9 +54,9 @@ async function run() {
       })),
       initial: 1
     });
-    excutetFunc(response.value)
+    watch(response.value, () => excutetFunc(response.value))
   } else {
-    excutetFunc(files[0])
+    watch(files[0], () => excutetFunc(files[0]))
   }
 }
 

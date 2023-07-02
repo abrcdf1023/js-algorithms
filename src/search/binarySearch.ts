@@ -20,7 +20,7 @@ const data = [-1,0,3,5,9,12]
 //   console.log(error)
 // }
 
-function binarySearch(nums, target) {
+function binarySearch(nums: number[], target: number) {
   let left = 0
   let right = nums.length - 1
 
