@@ -20,7 +20,7 @@ function insertNode(tree: TreeNode, val: number) {
   }
 }
 
-export default function createBinarySearchTree(arr: (number|null)[]) {
+export default function createBST(arr: (number|null)[]) {
   const tree = new TreeNode()
   
   for (let i = 0; i < arr.length; i++) {
